@@ -29,12 +29,19 @@ interface CircleData {
   centerY: number;
   color: string;
   radius?: number;
+  isDragging?: boolean;
 }
 
 const AdvancedSkiaTapScreen = () => {
   const [circles, setCircles] = useState<CircleData[]>([]);
   const [canvasLayout, setCanvasLayout] = useState({ width: 0, height: 0 });
   const [lastGesture, setLastGesture] = useState("");
+  const circlesRef = useSharedValue<CircleData[]>([]);
+
+  // Update circlesRef whenever circles change
+  React.useEffect(() => {
+    circlesRef.value = circles;
+  }, [circles]);
 
   // Shared values for animations
   const scale = useSharedValue(1);
@@ -60,6 +67,14 @@ const AdvancedSkiaTapScreen = () => {
 
   const clearCircles = useCallback(() => {
     setCircles([]);
+  }, []);
+
+  const updateCircle = useCallback((id: number, updates: Partial<CircleData>) => {
+    setCircles((prev) => 
+      prev.map((circle) => 
+        circle.id === id ? { ...circle, ...updates } : circle
+      )
+    );
   }, []);
 
   // Create tap gesture
@@ -157,10 +172,88 @@ const AdvancedSkiaTapScreen = () => {
       runOnJS(updateLastGesture)(`Pinch - Scale: ${scale.value.toFixed(2)}x`);
     });
 
+  // Helper function to find circle at position
+  const findCircleAtPosition = (x: number, y: number): CircleData | null => {
+    'worklet';
+    try {
+      console.log('findCircleAtPosition called with:', { x, y, circlesLength: circlesRef.value.length });
+      for (const circle of circlesRef.value) {
+        console.log('Checking circle:', circle);
+        const distance = Math.sqrt(
+          Math.pow(x - circle.canvasX, 2) + Math.pow(y - circle.canvasY, 2)
+        );
+        console.log('Distance:', distance, 'Radius:', circle.radius || 25);
+        if (distance <= (circle.radius || 25)) {
+          console.log('Found matching circle:', circle);
+          return circle;
+        }
+      }
+      console.log('No circle found at position');
+      return null;
+    } catch (error) {
+      console.log('Error in findCircleAtPosition:', error);
+      return null;
+    }
+  };
+
+  // Create drag gesture for circles
+  const circleDragGesture = Gesture.Pan()
+    .activateAfterLongPress(500)
+    .onStart((event) => {
+      try {
+        console.log('CircleDrag onStart:', event);
+        const touchedCircle = findCircleAtPosition(event.x, event.y);
+        console.log('TouchedCircle:', touchedCircle);
+        if (touchedCircle) {
+          runOnJS(updateCircle)(touchedCircle.id, { isDragging: true });
+          runOnJS(updateLastGesture)(`Dragging circle at (${touchedCircle.centerX}, ${touchedCircle.centerY})`);
+        }
+      } catch (error) {
+        console.error('Error in circleDragGesture onStart:', error);
+      }
+    })
+    .onUpdate((event) => {
+      try {
+        if (canvasLayout.width === 0 || canvasLayout.height === 0) return;
+        
+        const draggingCircle = circlesRef.value.find(c => c.isDragging);
+        if (!draggingCircle) return;
+        
+        const newCanvasX = event.x;
+        const newCanvasY = event.y;
+        
+        // Calculate new coordinates
+        const centerX = canvasLayout.width / 2;
+        const centerY = canvasLayout.height / 2;
+        const newX = Math.round(((newCanvasX - centerX) / centerX) * 47);
+        const newY = Math.round(((centerY - newCanvasY) / centerY) * 25);
+        
+        runOnJS(updateCircle)(draggingCircle.id, {
+          canvasX: newCanvasX,
+          canvasY: newCanvasY,
+          centerX: newX,
+          centerY: newY,
+        });
+      } catch (error) {
+        console.log('Error in circleDragGesture onUpdate:', error);
+      }
+    })
+    .onEnd(() => {
+      try {
+        const draggingCircle = circlesRef.value.find(c => c.isDragging);
+        if (draggingCircle) {
+          runOnJS(updateCircle)(draggingCircle.id, { isDragging: false });
+          runOnJS(updateLastGesture)(`Moved circle to (${draggingCircle.centerX}, ${draggingCircle.centerY})`);
+        }
+      } catch (error) {
+        console.log('Error in circleDragGesture onEnd:', error);
+      }
+    });
+
   // Combine gestures - simplified to test crash
   const composedGesture = Gesture.Exclusive(
     doubleTapGesture,
-    longPressGesture,
+    circleDragGesture,
     tapGesture
   );
 
@@ -223,38 +316,41 @@ const AdvancedSkiaTapScreen = () => {
               )}
 
               {/* Draw circles */}
-              {circles.map((circle) => (
-                <Group key={circle.id}>
-                  <Circle
-                    cx={circle.canvasX}
-                    cy={circle.canvasY}
-                    r={circle.radius || 25}
-                    color={circle.color + "80"}
-                    style="fill"
-                  />
-                  <Circle
-                    cx={circle.canvasX}
-                    cy={circle.canvasY}
-                    r={circle.radius || 25}
-                    color={circle.color}
-                    style="stroke"
-                    strokeWidth={2}
-                  />
-                  {font && (
-                    <SkiaText
-                      x={circle.canvasX}
-                      y={circle.canvasY - (circle.radius || 25) - 10}
-                      text={`(${circle.centerX}, ${circle.centerY})`}
-                      color="black"
-                      origin={{
-                        x: circle.canvasX,
-                        y: circle.canvasY - (circle.radius || 25) - 10,
-                      }}
-                      font={font}
+              {circles.map((circle) => {
+                const opacity = circle.isDragging ? 0.5 : 1.0;
+                return (
+                  <Group key={circle.id} opacity={opacity}>
+                    <Circle
+                      cx={circle.canvasX}
+                      cy={circle.canvasY}
+                      r={circle.radius || 25}
+                      color={circle.color}
+                      style="fill"
                     />
-                  )}
-                </Group>
-              ))}
+                    <Circle
+                      cx={circle.canvasX}
+                      cy={circle.canvasY}
+                      r={circle.radius || 25}
+                      color={circle.color}
+                      style="stroke"
+                      strokeWidth={2}
+                    />
+                    {font && (
+                      <SkiaText
+                        x={circle.canvasX}
+                        y={circle.canvasY - (circle.radius || 25) - 10}
+                        text={`(${circle.centerX}, ${circle.centerY})`}
+                        color="black"
+                        origin={{
+                          x: circle.canvasX,
+                          y: circle.canvasY - (circle.radius || 25) - 10,
+                        }}
+                        font={font}
+                      />
+                    )}
+                  </Group>
+                );
+              })}
 
               {/* Draw center axes */}
               {canvasLayout.width > 0 && (
