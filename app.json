@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "tablero2",
-    "slug": "tablero2",
+    "name": "tablero",
+    "slug": "tablero",
     "version": "1.0.0",
     "orientation": "landscape",
     "icon": "./assets/icon.png",
@@ -24,6 +24,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

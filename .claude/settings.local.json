@@ -3,7 +3,12 @@
     "allow": [
       "Bash(gh auth:*)",
       "Bash(gh repo create:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git config:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx expo:*)",
+      "Bash(npm start:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }

@@ -18,6 +18,9 @@ export interface Game {
 export interface Team {
   teamId: string;
   name: string;
+  primaryColor: string;
+  secondaryColor: string;
+  tertiaryColor: string;
 }
 
 export interface Player {
@@ -31,7 +34,10 @@ export interface PlayEvent {
   playType: PlayType;
   p1id: string;
   p2id?: string;
+  locationX: number;
+  locationY: number;
   modifier?: string;
+  size: number;
   qty?: number;
   clock: number;
   ts: Date;
