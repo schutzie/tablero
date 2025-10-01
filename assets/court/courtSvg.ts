@@ -1,0 +1,65 @@
+export const courtDefaultSvg = `<svg viewBox='0 0 940 500' stroke-width='1' stroke='black' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        <defs>
+            <clipPath id="threePointClipNBA">
+                <rect id="threePointBoundingBoxNBA" x="30" y="0" width="440" height="290" />
+            </clipPath>
+
+            <g id="half" x="0" y="0">
+                <g id="all" stroke="black">
+                    <g id="boundary" fill="#d1af84">
+                        <rect id="fullCourt" width="500" height="470" />
+                        <line id="halfCourtLine" x1="0" y1="470" x2="500" y2="470" />
+                    </g>
+
+                    <g id="halfCourtCircles">
+                        <path id="halfCourtSmallArc" d="M230 470 A10 10 0 0 1 270 470" />
+                        <path id="halfCourtLargeArc" d="M190 470 A30 30 0 0 1 310 470" />
+                    </g>
+
+                    <g id="paint">
+                        <g id="paintCircles">
+                            <path id="freeThrowArcSolid" d="M190 190 A50 50 0 0 0 310 190" />
+                            <path id="freeThrowArcDashed" d="M190 190 A50 50 0 0 1 310 190"
+                                stroke-dasharray="15 15" />
+                        </g>
+                    </g>
+
+                    <g>
+                        <line id="coachesBox1" x1="0" y1="280" x2="30" y2="280" />
+                        <line id="coachesBox2" x1="500" y1="280" x2="470" y2="280" />
+                    </g>
+
+                    <g id="hoop">
+                        <line id="backboard" x1="220" y1="40" x2="280" y2="40" />
+                        <circle id="hoop" cx="250" cy="50" r="7.5" stroke="#FF4433" />
+                        <rect id="hoopBase" x="247.5" y="40" width="5" height="2.5" stroke="#FF4433"
+                            fill="#FF4433" />
+                    </g>
+                </g>
+
+                <g id="standardCourt" >
+                    <path d="M40 0 l0 40 A50 50 0 0 0 460 40 l0 -40 Z" />
+                    <rect id="paintNarrow" x="190" y="0" width="120" height="190" />
+                </g>
+
+                <g id="ncaaCourt">
+                    <g id="paintNCAA">
+                        <g id="laneHashes">
+                            <rect id="laneBlockA" x="180" y="70" width="10" height="10" fill="black"/>
+                            <line id="laneHashA1" x1="180" y1="110" x2="190" y2="110" />
+                            <line id="laneHashA2" x1="180" y1="140" x2="190" y2="140" />
+                            <line id="laneHashA3" x1="180" y1="170" x2="190" y2="170" />
+
+                            <rect id="laneBlockB" x="310" y="70" width="10" height="10" fill="black"/>
+                            <line id="laneHashB1" x1="310" y1="110" x2="320" y2="110" />
+                            <line id="laneHashB2" x1="310" y1="140" x2="320" y2="140" />
+                            <line id="laneHashB3" x1="310" y1="170" x2="320" y2="170" />
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </defs>
+
+        <use id="left" href="#half" transform="rotate(-90) translate(-500 0)" />
+        <use id="right" href="#half" transform="rotate(90) translate(0 -940)" />
+</svg>`;

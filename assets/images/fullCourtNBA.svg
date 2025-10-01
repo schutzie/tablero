@@ -1,0 +1,82 @@
+<svg width='940' height='500' viewBox="0 0 940 500" stroke-width='1' stroke='black' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <defs>
+        <clipPath id='threePointClipNBA'>
+            <rect id='threePointBoundingBoxNBA' x='30' y='0' width='440' height='290' />
+        </clipPath>
+
+        <g id='half'>
+            <g id='all' stroke='black'>
+                <g id='boundary' fill='#d1af84'>
+                    <rect id='halfCourtBoundary' width='500' height='470' /> <!-- 50'w x 94'l -->
+                    <line id='halfCourtLine' x1='0' y1='470' x2='500' y2='470' /> <!-- 50'w @ half court-->
+                </g>
+
+                <g id='halfCourtCircles'>
+                    <path id='halfCourtSmallArc' d='M230 470 A10 10 0 0 1 270 470' />
+                    <path id='halfCourtLargeArc' d='M190 470 A30 30 0 0 1 310 470' />
+                </g>
+
+                <g id='paint'>
+                    <g id='paintCircles'>
+                        <path id='freeThrowArcSolid' d='M190 190 A50 50 0 0 0 310 190' />
+                        <path id='freeThrowArcDashed' d='M190 190 A50 50 0 0 1 310 190'
+                            stroke-dasharray='15 15' />
+                    </g>
+                </g>
+
+                <g>
+                    <line id='coachesBox1' x1='0' y1='280' x2='30' y2='280' />
+                    <line id='coachesBox2' x1='500' y1='280' x2='470' y2='280' />
+                </g>
+
+                <g id='hoop'>
+                    <line id='backboard' x1='220' y1='40' x2='280' y2='40' />
+                    <circle id='hoop' cx='250' cy='50' r='7.5' stroke='#FF4433' />
+                    <rect id='hoopBase' x='247.5' y='40' width='5' height='2.5' stroke='#FF4433'
+                        fill='#FF4433' />
+
+                </g>
+            </g>
+
+            <g id='nbaCourt'>
+                <g id='paintNBA'>
+                    <rect id='paintWide' x='170' y='0' width='160' height='190' />
+                    <g id='laneHashes'>
+                        <line id='laneHashA1' x1='160' y1='70' x2='170' y2='70' />
+                        <line id='laneHashA2' x1='160' y1='80' x2='170' y2='80' />
+                        <line id='laneHashA3' x1='160' y1='110' x2='170' y2='110' />
+                        <line id='laneHashA4' x1='160' y1='140' x2='170' y2='140' />
+
+                        <line id='laneHashB1' x1='330' y1='70' x2='340' y2='70' />
+                        <line id='laneHashB2' x1='330' y1='80' x2='340' y2='80' />
+                        <line id='laneHashB3' x1='330' y1='110' x2='340' y2='110' />
+                        <line id='laneHashB4' x1='330' y1='140' x2='340' y2='140' />
+                    </g>
+                    <g id='restrictedArea'>
+                        <path id='restrictedAreaArc' d="M210 47.5 A1 1 0 0 0 290 47.5" />
+                        <line id='restrictedAreaLine1' x1='210' y1='40' x2='210' y2='47.5' />
+                        <line id='restrictedAreaLine2' x1='290' y1='40' x2='290' y2='47.5' />
+                    </g>
+                </g>
+                <g id='threePointNBA' clip-path='url(#threePointClipNBA)'>
+                    <g id='threePointLinesNBA'>
+                        <line id='threePointSideNBA1' x1='30' y1='0' x2='30' y2='140' />
+                        <line id='threePointSideNBA2' x1='470' y1='0' x2='470' y2='140' />
+                        <path id='threePointArcNBA1' d='M250 285 A50 50 0 0 0 250 -192.5' />
+                        <path id='threePointArcNBA2' d='M250 285 A50 50 0 0 1 250 -192.5' />
+                    </g>
+                </g>
+                <g id='smallMarks'>
+                    <line id="baselineDash1" x1='140' y1='0' x2='140' y2='5' />
+                    <line id="baselineDash2" x1='360' y1='0' x2='360' y2='5' />
+
+                    <line id="paintDash1" x1='200' y1='130' x2='205' y2='130' />
+                    <line id="paintDash2" x1='300' y1='130' x2='295' y2='130' />
+                </g>
+            </g>
+        </g>
+    </defs>
+
+    <use id="left" href="#half" transform="rotate(-90) translate(-500 0)" />
+    <use id="right" href="#half" transform="rotate(90) translate(0 -940)" />
+</svg>

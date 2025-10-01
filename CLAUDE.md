@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-tablero is a React Native Expo application for basketball game analysis and visualization. It provides an interactive canvas where users can tap to create draggable basketball icons, likely intended for tactical analysis or play visualization.
+courtFlow is a React Native Expo application for basketball game analysis and visualization. It provides an interactive canvas where users can tap to create draggable basketball icons, likely intended for tactical analysis or play visualization.
 
 ## Development Commands
 

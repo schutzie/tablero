@@ -9,7 +9,17 @@
       "Bash(npx expo:*)",
       "Bash(npm start:*)",
       "Bash(mv:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(npm install)",
+      "Bash(npm ls:*)",
+      "Bash(npm install:*)",
+      "Bash(rm:*)",
+      "Bash(mkdir:*)",
+      "Read(/C:\\Users\\matts\\Documents\\dev\\courtflow\\store\\slices/**)",
+      "Read(/C:\\Users\\matts\\Documents\\dev\\courtflow\\store\\slices/**)",
+      "Read(/C:\\Users\\matts\\Documents\\dev\\courtflow\\store/**)",
+      "Read(/C:\\Users\\matts\\Documents\\dev\\courtflow\\components\\demo/**)",
+      "Read(/C:\\Users\\matts\\Documents\\dev\\courtflow\\components\\forms/**)"
     ],
     "deny": []
   }
