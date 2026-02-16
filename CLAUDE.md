@@ -68,3 +68,4 @@ components/
 - Uses new React Native architecture
 - Babel configured with react-native-reanimated plugin
 - TypeScript strict mode enabled
+- firestore setup

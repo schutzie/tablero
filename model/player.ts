@@ -1,5 +1,5 @@
-import * as z from "zod"; 
-import { TimestampSchema } from './helpers';
+import * as z from "zod";
+import { TimestampSchema } from "../_archive/model_old/helpers";
 import { Position, SkillLevel, TeamRole } from "./enums";
 
 // ============================================
@@ -15,12 +15,12 @@ const CareerStatsSchema = z.object({
   avgAssistsPerGame: z.number().default(0),
   fieldGoalPercentage: z.number().min(0).max(1).default(0),
   threePointPercentage: z.number().min(0).max(1).default(0),
-  freeThrowPercentage: z.number().min(0).max(1).default(0)
+  freeThrowPercentage: z.number().min(0).max(1).default(0),
 });
 const CurrentTeamSchema = z.object({
   teamId: z.string(),
   role: z.nativeEnum(TeamRole),
-  joinedAt: TimestampSchema
+  joinedAt: TimestampSchema,
 });
 
 export const PlayerSchema = z.object({
@@ -41,34 +41,36 @@ export const PlayerSchema = z.object({
   phone: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
-  country: z.string().default('USA'),
+  country: z.string().default("USA"),
 
   // Career Info
   yearsOfExperience: z.number().min(0).default(0),
   skillLevel: z.nativeEnum(SkillLevel).default(SkillLevel.INTERMEDIATE),
-  dominantHand: z.enum(['left', 'right', 'ambidextrous']).default('right'),
+  dominantHand: z.enum(["left", "right", "ambidextrous"]).default("right"),
 
   // Current Team Associations
   currentTeams: z.array(CurrentTeamSchema).default([]),
 
   // Aggregated Stats
   careerStats: CareerStatsSchema.default({}),
-  currentSeasonStats: z.object({
-    seasonId: z.string(),
-    gamesPlayed: z.number(),
-    points: z.number(),
-    rebounds: z.number(),
-    assists: z.number(),
-    fieldGoalPercentage: z.number().min(0).max(1),
-    threePointPercentage: z.number().min(0).max(1),
-    freeThrowPercentage: z.number().min(0).max(1)
-  }).optional(),
+  currentSeasonStats: z
+    .object({
+      seasonId: z.string(),
+      gamesPlayed: z.number(),
+      points: z.number(),
+      rebounds: z.number(),
+      assists: z.number(),
+      fieldGoalPercentage: z.number().min(0).max(1),
+      threePointPercentage: z.number().min(0).max(1),
+      freeThrowPercentage: z.number().min(0).max(1),
+    })
+    .optional(),
 
   // Metadata
   createdAt: TimestampSchema,
   updatedAt: TimestampSchema,
   isActive: z.boolean().default(true),
-  linkedUserId: z.string().optional().nullable()
+  linkedUserId: z.string().optional().nullable(),
 });
 
 export type Player = z.infer<typeof PlayerSchema>;

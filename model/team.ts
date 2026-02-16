@@ -1,5 +1,5 @@
 import * as z from "zod"; 
-import { TimestampSchema } from './helpers';
+import { TimestampSchema } from '../_archive/model_old/helpers';
 import { Position, TeamRole } from "./enums";
 
 // ============================================

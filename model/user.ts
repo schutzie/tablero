@@ -1,12 +1,12 @@
 import * as z from "zod"; 
-import { TimestampSchema } from './helpers';
+import { TimestampSchema } from '../_archive/model_old/helpers';
 import { AccountType, ProfileVisibility, UserRole } from "./enums";
 
 // ============================================
 // USER & PREFERENCES SCHEMAS
 // ============================================
 // User preferences embedded within user document
-export const UserPreferencesSchema = z.object({
+export const UserSettingsSchema = z.object({
   notifications: z.object({
     gameReminders: z.boolean().default(true),
     teamUpdates: z.boolean().default(true),
@@ -46,7 +46,7 @@ export const UserSchema = z.object({
   linkedPlayerId: z.string().optional().nullable(),
 
   // Preferences
-  preferences: UserPreferencesSchema,
+  preferences: userSettingsSchema,
 
   // Following/Favorites
   followingPlayers: z.array(z.string()).default([]),
@@ -61,4 +61,4 @@ export const UserSchema = z.object({
 
 export type User = z.infer<typeof UserSchema>;
 export type PartialUser = Partial<User>;
-export type UserPreferences = z.infer<typeof UserPreferencesSchema>;
+export type userSettings = z.infer<typeof userSettingsSchema>;

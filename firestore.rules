@@ -1,0 +1,82 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ============================================
+    // DEVELOPMENT RULES - Open access for testing
+    // ============================================
+    // WARNING: These rules allow anyone to read/write your database
+    // Use ONLY for development/testing!
+    // Comment out these rules and use the production rules below when ready
+
+    match /{document=**} {
+      allow read, write: if true;
+    }
+
+    // ============================================
+    // PRODUCTION RULES - Secure access (currently commented out)
+    // ============================================
+    // Uncomment these rules when you're ready for production
+
+    /*
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update, delete: if isOwner(userId);
+    }
+
+    // Players collection
+    match /players/{playerId} {
+      allow read: if isSignedIn();
+      allow create, update: if isSignedIn();
+      allow delete: if isSignedIn(); // Add more specific rules as needed
+    }
+
+    // Teams collection
+    match /teams/{teamId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isSignedIn(); // Add ownership checks
+    }
+
+    // Leagues collection
+    match /leagues/{leagueId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isSignedIn(); // Add admin checks
+    }
+
+    // Games collection
+    match /games/{gameId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isSignedIn();
+    }
+
+    // FirestoreTesting collection (for testing)
+    match /firestoreTesting/{docId} {
+      allow read, write: if true; // Open for testing
+    }
+
+    // User settings
+    match /userSettings/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // Notifications
+    match /notifications/{notificationId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn();
+      allow update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+    */
+  }
+}

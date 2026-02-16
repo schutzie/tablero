@@ -1,5 +1,5 @@
 import * as z from "zod"; 
-import { TimestampSchema, OptionalTimestampSchema } from './helpers';
+import { TimestampSchema, OptionalTimestampSchema } from '../_archive/model_old/helpers';
 import { NotificationType } from "./enums";
 
 // ============================================

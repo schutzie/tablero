@@ -1,0 +1,5 @@
+intro to redux and slicers
+https://www.youtube.com/watch?v=YPVUPpKADb8
+
+firestore setup
+https://www.youtube.com/watch?v=mZlKwRV4MC8

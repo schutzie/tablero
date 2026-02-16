@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { Player } from "../../model/player";
+import { Player } from "../../_archive/model_old/player";
 import JerseyIcon from "../../assets/icons/jersey-icon.svg";
+import { ColorScheme } from "../../assets/ColorScheme";
 
 const PLAYER_SQUARE_SIZE = 150;
 
@@ -13,7 +14,7 @@ export const PlayerSquare: React.FC<PlayerSquareProps> = ({ player }) => {
   return (
     <View style={styles.container}>
       <View style={styles.jerseyContainer}>
-        <JerseyIcon width={80} height={100} fill="#FF6B35" color="#0000ff" />
+        <JerseyIcon width={80} height={100} fill={ColorScheme.secondary} color={ColorScheme.primary} />
         <Text style={styles.jerseyNumber}>{player.jerseyNumber}</Text>
       </View>
       <View

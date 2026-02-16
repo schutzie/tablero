@@ -1,6 +1,6 @@
-import { League } from '../../model/league';
-import { Team } from '../../model/team';
-import { Player } from '../../model/player';
+import { League } from '../../_archive/model_old/league';
+import { Team } from '../../_archive/model_old/team';
+import { Player } from '../../_archive/model_old/player';
 import { Game } from '../../model/game';
 import { GameEvent } from '../../model/gameEvent';
 import {

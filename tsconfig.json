@@ -1,6 +1,13 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "jsx": "react",
     "strict": true
-  }
+  },
+  "exclude": [
+    "_archive",
+    "_reference material",
+    "snippets",
+    "_test"
+  ]
 }
